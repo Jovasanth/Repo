@@ -1,0 +1,111 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * Write your model definitions here
+ */
+
+namespace torus.ekyc.dl
+
+abstract participant ekyc_participantbase identified by ekyc_p_id {
+  o String ekyc_p_id
+  o String name
+}
+
+abstract participant ekyc_participantuserbase identified by ekyc_pu_id {
+  o String ekyc_pu_id
+  o String name
+    -->  ekyc_FI ekyc_FI optional
+}
+
+participant ekyc_CBB extends ekyc_participantbase {
+}
+
+participant ekyc_BENEFIT extends ekyc_participantbase {
+   -->  ekyc_CBB ekyc_CBB optional
+}
+ 
+participant ekyc_FI extends ekyc_participantbase {
+  -->  ekyc_BENEFIT ekyc_BENEFIT optional
+}
+
+participant ekyc_FI_admin extends ekyc_participantuserbase {
+ }
+
+participant ekyc_FI_checker extends ekyc_participantuserbase {
+   
+}
+
+participant ekyc_FI_maker extends ekyc_participantuserbase {
+}
+
+
+concept companydetail
+ {
+    o String Organization_Name
+    o String Type_of_Business
+    o DateTime Incorporation_Date
+    o String Incorporation_Place
+    o String Fax_no
+    o String External_Auditor_Name
+    o String Business_nature
+    o String IGA_ID
+}
+
+concept persondetail 
+{
+    o DateTime DOB
+    o String Birth_Place
+    o String Nationality
+    o String Passport_no
+    o String CPR_no
+    o String Iqama_no
+    o String Occupation
+    o String Employer_Name
+    o String Profile_Photo
+    o String MOIC_ID
+}
+
+
+asset ekyc_dl_trn identified by dl_id
+ {
+  o String dl_id
+  o String edt_id
+  --> ekyc_FI ekyc_FI optional
+  --> ekyc_FI_checker eekyc_FI_USR  optional
+  o String code
+  o String process_type
+  o String service_type
+  o String type
+  o DateTime process_date_time
+  o String  login_name
+  o String first_name
+  o String last_name
+  o String Middle_Name
+  o String Email_ID
+  o String Mobile_no
+  o String Land_Line_no
+  o String Fund_Source
+  o String Salary
+  o String Status
+  o String Process_Status
+  o DateTime Cancel_Revocation_Date
+  o persondetail persondetail optional
+  o companydetail companydetail optional
+ }
+
+
+
+
+
