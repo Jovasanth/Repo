@@ -105,6 +105,14 @@ asset ekyc_dl_trn identified by dl_id
   o companydetail companydetail optional
  }
 
+ /**
+*  TRANSACTIONS
+ */
+
+ transaction create_kyc_dl_trn {
+   o ekyc_dl_trn ekyc_dl_trn_req
+}
+
 
 
 
